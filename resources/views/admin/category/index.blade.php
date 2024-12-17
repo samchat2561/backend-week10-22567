@@ -50,7 +50,8 @@
                             <td>{{ $category->status }}</td>
                             <td>
                                 <a href="#" class="btn btn-primary btn-sm text-white">View</a>
-                                <a href="#" class="btn btn-success btn-sm text-white">Edit</a>
+                                <a href="{{ route('admin.category.edit', $category->id) }}"
+                                    class="btn btn-success btn-sm text-white">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm text-white">Delete</a>
                             </td>
                         </tr>

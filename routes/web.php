@@ -46,10 +46,12 @@ Route::prefix('admin')->group(function () {
         Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
         Route::get('category/index', [CategoryController::class, 'index'])->name('admin.category.index');
         Route::get('category/add-cetegory', [CategoryController::class, 'create'])->name('admin.category.create');
-        //Create post
+        //Method POST: Create post
         Route::post('category/add-cetegory', [CategoryController::class, 'store'])->name('admin.category.store');
+        //Method GET: Edit post
+        Route::get('category/edit-category/{category_id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+        //Method PUT: Update post
+        Route::put('category/update-category/{category_id}', [CategoryController::class, 'update'])->name('admin.category.update');
     });
 });
 
-//http://127.0.0.1:8000/admin/category/edit
-Route::get('admin/category/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');

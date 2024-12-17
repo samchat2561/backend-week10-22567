@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -64,8 +65,48 @@ class CategoryController extends Controller
     /**
      * Edit the category for a given user.
      */
-    public function edit()
+    public function edit($category_id)
     {
-        return view('admin.category.edit');
+        $category = Category::find($category_id);
+        return view('admin.category.edit', compact('category'), ['title' => 'Edit Category']);
+    }
+
+    public function update(Request $request, $category_id)
+    {
+        // Validate and store the blog post...
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'description' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg,gif',
+            'status' => 'nullable',
+            'created_by' => 'nullable'
+        ]);
+
+        $category = Category::find($category_id);
+
+        $slug = Str::slug($request->name);
+        $created_by = Auth::guard('admin')->id();
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->description = $request->description;
+        
+        if ($request->hasfile('image')) {
+            $description = 'uploads/categories/' . $category->image;
+            if (File::exists($description)) {
+                File::exists($description);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads/categories/', $imageName);
+            $category->image = $imageName;
+        }
+
+        $category->status = $request->status == true ? '1' : '0';
+        $category->created_by = $created_by;
+        $category->update();
+
+        return redirect()->route('admin.category.index')->with('success','Category updated successfully.');
     }
 }
