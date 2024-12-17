@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function () {
         Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
         Route::get('category/index', [CategoryController::class, 'index'])->name('admin.category.index');
         Route::get('category/add-cetegory', [CategoryController::class, 'create'])->name('admin.category.create');
+        //Create post
         Route::post('category/add-cetegory', [CategoryController::class, 'store'])->name('admin.category.store');
     });
 });
