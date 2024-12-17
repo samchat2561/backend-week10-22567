@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = $slug;
         $category->description = $request->description;
-        
+
         if ($request->hasfile('image')) {
             $description = 'uploads/categories/' . $category->image;
             if (File::exists($description)) {
@@ -107,6 +107,21 @@ class CategoryController extends Controller
         $category->created_by = $created_by;
         $category->update();
 
-        return redirect()->route('admin.category.index')->with('success','Category updated successfully.');
+        return redirect()->route('admin.category.index')->with('success', 'Category updated successfully.');
+    }
+
+    public function destroy($category_id)
+    {
+        $category =  Category::find($category_id);
+        if ($category) {
+            $destination = 'uploads/categories/' . $category->image;
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
+            $category->delete();
+            return redirect()->route('admin.category.index')->with('success', 'Category deleted successfully!');
+        } else {
+            return redirect()->route('admin.category.index')->with('error', 'No category id found!');
+        }
     }
 }

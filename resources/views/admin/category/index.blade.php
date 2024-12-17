@@ -21,6 +21,12 @@
                 </div>
             @endif
 
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -52,7 +58,8 @@
                                 <a href="#" class="btn btn-primary btn-sm text-white">View</a>
                                 <a href="{{ route('admin.category.edit', $category->id) }}"
                                     class="btn btn-success btn-sm text-white">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm text-white">Delete</a>
+                                <a href="{{ route('admin.category.delete', $category->id) }}"
+                                    class="btn btn-danger btn-sm text-white">Delete</a>
                             </td>
                         </tr>
                     @endforeach
