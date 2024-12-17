@@ -38,7 +38,7 @@
     <div class="container my-5">
         <div class="row">
 
-            <div class="col-lg-4 mb-3">
+            <div class="col-lg-3 mb-3">
                 <div class="card shadow">
                     <div class="card-header">
                         Admin Menu
@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 mb-3">
+            <div class="col-lg-9 mb-3">
                 @yield('content')
             </div>
 

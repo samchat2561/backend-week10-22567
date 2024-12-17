@@ -24,12 +24,11 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Image</th>
                         <th>Status</th>
-                        <th>Created_by</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -41,16 +40,14 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->description }}</td>
+                            <td>{{ Str::limit($category->description, 50) }}</td>
                             <td>
-                                <a href="{{asset('uploads/categories/'.$category->image) }}" target="_blank">
-                                    <img src="{{ asset('uploads/categories/' . $category->image) }}" alt="{{ $category->name }}"
-                                    width="50" height="50">
+                                <a href="{{ asset('uploads/categories/' . $category->image) }}" target="_blank">
+                                    <img src="{{ asset('uploads/categories/' . $category->image) }}"
+                                        alt="{{ $category->name }}" width="50" height="50">
                                 </a>
-
                             </td>
-                            <td>true</td>
-                            <td>11-12-2024</td>
+                            <td>{{ $category->status }}</td>
                             <td>
                                 <a href="#" class="btn btn-primary btn-sm text-white">View</a>
                                 <a href="#" class="btn btn-success btn-sm text-white">Edit</a>
